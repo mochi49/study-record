@@ -18,6 +18,13 @@ jobs:
           node-version: 20
           cache: npm
 
+      - name: Create .env
+        run: |
+          cat <<EOF > .env
+          VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY=${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          EOF
+
       - run: npm ci
       - run: npm run build
 
@@ -26,4 +33,4 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STUDY_RECORD_625EC }}
           projectId: study-record-625ec
-          channelId: live   # 本番公開
+          channelId: live # 本番公開
